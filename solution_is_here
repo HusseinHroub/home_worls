@@ -1,0 +1,100 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    //full names point 1
+    string fullNames[] = {"Sebastien Ogier", "Esapekka Lappi", "Teemu Suninen", "Craig Breen", "Dani Sordo", "Gus Greensmith", "Kris Meeke", "Sébastien Loeb", "Andreas Mikkelsen", "Jari-Matti Latvala"};
+    //car names point 2
+    string cars[] = {"Citroën", "Citroën" , "Ford" , "Hyundai" , "Hyundai" , "Ford" , "Toyota", "Hyundai", "Hyundai", "Toyota" };
+    
+    int roundOneTimes[10]; //for point 3
+    int roundTwoTimes[10]; //for point 3
+    int results[10][2]; //two dimensional array, column 0 => enhancment, column 1 => real index
+    
+    for(int i = 0; i<10; i++)
+    {
+        roundOneTimes[i] = (rand()%240) + 360;
+    }
+    
+    for(int i = 0; i<10; i++)
+    {
+        roundTwoTimes[i] = (rand()%240) + 360;
+    }
+    
+    for(int i = 0; i<10; i++)
+    {
+        results[i][0] = roundOneTimes[i] - roundTwoTimes[i];
+        results[i][1] = i;
+    }
+    
+    //sorting, point
+    for(int i = 0; i<10; i++)
+    {
+        for(int j = i + 1; j<10; j++)
+        {
+            if(results[j][0] > results[i][0])
+            {
+                //swap enhancment of the two arrays
+                int temp = results[j][0];
+                results[j][0] = results[i][0];
+                results[i][0] = temp;
+                
+                //swap realIndex of the two arrays
+                temp = results[j][1];
+                results[j][1] = results[i][1];
+                results[i][1] = temp;
+                
+            }
+        }
+        
+    }
+    
+    //printing final result, point 5
+    for(int i = 0; i<10; i++)
+    {
+        int realIndex = results[i][1];
+        cout << (i + 1) << "- " <<
+        "Full Name: " << fullNames[realIndex] <<
+        ", Car: " << cars[realIndex] <<
+        ", Round 1: " << roundOneTimes[realIndex] <<
+        ", Round 2: " << roundTwoTimes[realIndex] << endl;
+
+    }
+    
+    //print for best player, point 6
+    int bestPlayerIndex = results[0][1];
+    cout<<"==================="<< endl;
+    cout<<"Best player data" << endl;
+    cout << "Last name: " << fullNames[bestPlayerIndex] <<
+    ", Car: " << cars[bestPlayerIndex] <<
+    ", Average Time " << ((roundOneTimes[bestPlayerIndex] + roundTwoTimes[bestPlayerIndex]) / 2) << endl;
+    
+    //for point 7, user must input player full name
+    string playerFullName;
+    cout << endl << "Enter player full name please: ";
+    getline(cin, playerFullName);
+    
+    bool found = false;
+    for(int i = 0; i<10; i++)//this loop to search for player
+    {
+        if(playerFullName == fullNames[i])
+        {
+            found = true;
+             cout <<
+            "Full Name: " << fullNames[i] <<
+            ", Car: " << cars[i] <<
+            ", Round 1: " << roundOneTimes[i] <<
+            ", Round 2: " << roundTwoTimes[i] << endl;
+        
+        break;
+        }
+
+    }
+    
+    if(!found)
+    {
+        cout << "Sorry, this player doesn't exist!" << endl;
+    }
+    return 0;
+}

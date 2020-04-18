@@ -64,9 +64,21 @@ int main()
     
     //print for best player, point 6
     int bestPlayerIndex = results[0][1];
+    string fullName = fullNames[bestPlayerIndex];
+    //this will extract last name only 
+    string lastName;
+    for(int i = 0; i<fullName.length(); i++)
+    {
+        if(fullName[i] == ' ')
+        {
+            lastName = fullName.substr(i + 1, fullName.length());    
+            break;
+        }
+        
+    }
     cout<<"==================="<< endl;
     cout<<"Best player data" << endl;
-    cout << "Last name: " << fullNames[bestPlayerIndex] <<
+    cout << "Last name: " << lastName <<
     ", Car: " << cars[bestPlayerIndex] <<
     ", Average Time " << ((roundOneTimes[bestPlayerIndex] + roundTwoTimes[bestPlayerIndex]) / 2) << endl;
     
